@@ -1,0 +1,31 @@
+﻿<Window x:Class="BeautyApplication.Views.ClientDashboard"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Client - BeautyApplication" Height="400" Width="600">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Book an Appointment" FontSize="20" Margin="0,0,0,20"/>
+
+        <StackPanel Grid.Row="1">
+            <ComboBox x:Name="ServiceComboBox" Margin="0,0,0,10" DisplayMemberPath="Name"/>
+            <ComboBox x:Name="MasterComboBox" Margin="0,0,0,10" DisplayMemberPath="User.Name"/>
+            <DatePicker x:Name="AppointmentDatePicker" Margin="0,0,0,10"/>
+            <Button Content="Book" Width="100" Click="BookAppointment_Click"/>
+
+            <ListView x:Name="AppointmentsListView" Margin="0,20,0,0">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Service" DisplayMemberBinding="{Binding Service.Name}"/>
+                        <GridViewColumn Header="Master" DisplayMemberBinding="{Binding Master.User.Name}"/>
+                        <GridViewColumn Header="Time" DisplayMemberBinding="{Binding AppointmentTime}"/>
+                        <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </StackPanel>
+    </Grid>
+</Window>

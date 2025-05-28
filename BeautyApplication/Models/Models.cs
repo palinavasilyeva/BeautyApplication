@@ -12,14 +12,11 @@ namespace BeautyApplication.Models
         [Required]
         public string Email { get; set; }
         [Required]
-        public string Role { get; set; } // "Client" или "Master"
+        public string Role { get; set; } 
         [Required]
         public string PasswordHash { get; set; }
     }
 
-    /// <summary>
-    /// Услуга, предоставляемая салоном.
-    /// </summary>
     public class Service
     {
         [Key]
@@ -27,14 +24,11 @@ namespace BeautyApplication.Models
         [Required]
         public string Name { get; set; }
         [Required]
-        public int Duration { get; set; } // В минутах
+        public int Duration { get; set; } 
         [Required]
         public decimal Price { get; set; }
     }
 
-    /// <summary>
-    /// Мастер салона.
-    /// </summary>
     public class Master
     {
         [Key]
@@ -46,9 +40,6 @@ namespace BeautyApplication.Models
         public string Specialization { get; set; }
     }
 
-    /// <summary>
-    /// Запись на прием.
-    /// </summary>
     public class Appointment
     {
         [Key]
@@ -65,6 +56,6 @@ namespace BeautyApplication.Models
         [Required]
         public DateTime AppointmentTime { get; set; }
         [Required]
-        public string Status { get; set; } // "Pending", "Confirmed", "Cancelled"
+        public string Status { get; set; } 
     }
 }

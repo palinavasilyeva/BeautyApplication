@@ -3,9 +3,6 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BeautyApplication.Models
 {
-    /// <summary>
-    /// Пользователь системы (клиент или мастер).
-    /// </summary>
     public class User
     {
         [Key]

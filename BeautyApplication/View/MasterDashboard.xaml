@@ -1,0 +1,24 @@
+﻿<Window x:Class="BeautyApplication.Views.MasterDashboard"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Master - BeautyApplication" Height="400" Width="600">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Master's Schedule" FontSize="20" Margin="0,0,0,20"/>
+
+        <ListView x:Name="AppointmentsListView" Grid.Row="1">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Client" DisplayMemberBinding="{Binding User.Name}"/>
+                    <GridViewColumn Header="Service" DisplayMemberBinding="{Binding Service.Name}"/>
+                    <GridViewColumn Header="Time" DisplayMemberBinding="{Binding AppointmentTime}"/>
+                    <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</Window>

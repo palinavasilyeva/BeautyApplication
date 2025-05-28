@@ -28,6 +28,11 @@ namespace BeautyApplication.Views
             MasterComboBox.ItemsSource = _context.Masters.Include(m => m.User).ToList();
             AppointmentsListView.ItemsSource = _appointmentService.GetUserAppointments(_user.UserId);
         }
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
 
         private void BookAppointment_Click(object sender, RoutedEventArgs e)
         {

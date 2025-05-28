@@ -35,7 +35,7 @@ namespace BeautyApplication
 
             if (user != null)
             {
-                var dashboard = user.Role == "Client" ? new ClientDashboard(user) : new MasterDashboard(user);
+                var dashboard = user.Role == "Client" ? (Window)new ClientDashboard(user) : new MasterDashboard(user);
                 dashboard.Show();
                 Close();
             }

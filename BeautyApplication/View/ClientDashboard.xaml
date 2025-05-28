@@ -1,31 +1,99 @@
 ﻿<Window x:Class="BeautyApplication.Views.ClientDashboard"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Client - BeautyApplication" Height="400" Width="600">
-    <Grid Margin="20">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+        Title="Client - BeautyApplication" Height="500" Width="700" Background="#FFF5F5F5" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Border Background="White" CornerRadius="12" Padding="20" Margin="20">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="10" ShadowDepth="2" Opacity="0.3"/>
+            </Border.Effect>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
 
-        <TextBlock Text="Book an Appointment" FontSize="20" Margin="0,0,0,20"/>
+                <TextBlock Text="Book an Appointment" 
+                           FontSize="24" 
+                           FontWeight="Bold" 
+                           Foreground="#171738" 
+                           HorizontalAlignment="Center" 
+                           Margin="0,0,0,20"/>
 
-        <StackPanel Grid.Row="1">
-            <ComboBox x:Name="ServiceComboBox" Margin="0,0,0,10" DisplayMemberPath="Name"/>
-            <ComboBox x:Name="MasterComboBox" Margin="0,0,0,10" DisplayMemberPath="User.Name"/>
-            <DatePicker x:Name="AppointmentDatePicker" Margin="0,0,0,10"/>
-            <Button Content="Book" Width="100" Click="BookAppointment_Click"/>
+                <StackPanel Grid.Row="1" VerticalAlignment="Top">
+                    <!-- Label for Service -->
+                    <TextBlock Text="Select a Service"
+                               FontWeight="SemiBold"
+                               Foreground="#444"
+                               Margin="0,0,0,5"/>
+                    <ComboBox x:Name="ServiceComboBox" 
+                              Margin="0,0,0,10" 
+                              Padding="8"
+                              Height="35"
+                              Background="#FFF"
+                              BorderBrush="#CCC"
+                              DisplayMemberPath="Name"/>
 
-            <ListView x:Name="AppointmentsListView" Margin="0,20,0,0">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="Service" DisplayMemberBinding="{Binding Service.Name}"/>
-                        <GridViewColumn Header="Master" DisplayMemberBinding="{Binding Master.User.Name}"/>
-                        <GridViewColumn Header="Time" DisplayMemberBinding="{Binding AppointmentTime}"/>
-                        <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}"/>
-                    </GridView>
-                </ListView.View>
-            </ListView>
-        </StackPanel>
+                    <!-- Label for Master -->
+                    <TextBlock Text="Select a Master"
+                               FontWeight="SemiBold"
+                               Foreground="#444"
+                               Margin="0,0,0,5"/>
+                    <ComboBox x:Name="MasterComboBox" 
+                              Margin="0,0,0,10" 
+                              Padding="8"
+                              Height="35"
+                              Background="#FFF"
+                              BorderBrush="#CCC"
+                              DisplayMemberPath="User.Name"/>
+
+                    <!-- Label for Date -->
+                    <TextBlock Text="Select a Date"
+                               FontWeight="SemiBold"
+                               Foreground="#444"
+                               Margin="0,0,0,5"/>
+                    <DatePicker x:Name="AppointmentDatePicker" 
+                                Margin="0,0,0,10" 
+                                Height="35"
+                                Padding="8"/>
+
+                    <!-- Button -->
+                    <Button Content="Book" 
+                            Width="120" 
+                            Height="40"
+                            Background="#171738" 
+                            Foreground="White" 
+                            FontWeight="Bold" 
+                            BorderThickness="0" 
+                            HorizontalAlignment="Center" 
+                            Cursor="Hand"
+                            Click="BookAppointment_Click"/>
+
+                    <!-- Appointments Header -->
+                    <TextBlock Text="Your Appointments" 
+                               FontSize="18" 
+                               FontWeight="SemiBold" 
+                               Margin="0,20,0,10"
+                               Foreground="#171738"/>
+
+                    <!-- Appointment List -->
+                    <ListView x:Name="AppointmentsListView" 
+                              Background="#FAFAFA" 
+                              BorderBrush="#DDD"
+                              BorderThickness="1" 
+                              Padding="5" 
+                              Height="200">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Service" DisplayMemberBinding="{Binding Service.Name}" Width="120"/>
+                                <GridViewColumn Header="Master" DisplayMemberBinding="{Binding Master.User.Name}" Width="120"/>
+                                <GridViewColumn Header="Time" DisplayMemberBinding="{Binding AppointmentTime}" Width="150"/>
+                                <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}" Width="100"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </StackPanel>
+            </Grid>
+        </Border>
     </Grid>
 </Window>

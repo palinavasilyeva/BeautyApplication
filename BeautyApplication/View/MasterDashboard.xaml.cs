@@ -21,7 +21,10 @@ namespace BeautyApplication.Views
             _user = user;
             LoadData();
         }
-
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
         private void LoadData()
         {
             var master = _context.Masters.FirstOrDefault(m => m.UserId == _user.UserId);

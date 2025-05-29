@@ -48,6 +48,7 @@
 
                     <Button Content="Book Appointment"
                             Height="40"
+                            Width="160"
                             Background="Black"
                             Foreground="White"
                             BorderThickness="0"

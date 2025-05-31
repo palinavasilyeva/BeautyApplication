@@ -18,9 +18,24 @@ namespace BeautyApplication.Services
 
         public bool CreateAppointment(int userId, int masterId, int serviceId, DateTime appointmentTime)
         {
-            if (appointmentTime < DateTime.Now)
+            return CreateAppointment(userId, masterId, serviceId, appointmentTime, DateTime.Now);
+        }
+
+        public bool CreateAppointment(int userId, int masterId, int serviceId, DateTime appointmentTime, DateTime currentTime)
+        {
+            // Sprawdź, czy data nie jest w przeszłości
+            if (appointmentTime < currentTime)
                 return false;
 
+            // Sprawdź, czy użytkownik, mistrz i usługa istnieją
+            if (!_context.Users.Any(u => u.UserId == userId))
+                throw new InvalidOperationException("User does not exist.");
+            if (!_context.Masters.Any(m => m.MasterId == masterId))
+                throw new InvalidOperationException("Master does not exist.");
+            if (!_context.Services.Any(s => s.ServiceId == serviceId))
+                throw new InvalidOperationException("Service does not exist.");
+
+            // Sprawdź, czy nie ma konfliktu czasowego
             var conflict = _context.Appointments
                 .Any(a => a.MasterId == masterId && a.AppointmentTime == appointmentTime && a.Status != "Cancelled");
 

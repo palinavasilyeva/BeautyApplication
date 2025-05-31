@@ -25,18 +25,42 @@ namespace BeautyApplication
         private void InitializeDatabase()
         {
             _context.Database.EnsureCreated();
-            if (!_context.Users.Any())
+
+            // Sprawdź, czy istnieją użytkownicy z określonymi emailami
+            bool clientExists = _context.Users.Any(u => u.Email == "client@example.com");
+            bool masterExists = _context.Users.Any(u => u.Email == "master@example.com");
+
+            // Dodaj domyślnych użytkowników tylko jeśli nie istnieją
+            if (!clientExists)
             {
                 _context.Users.Add(new Models.User { Name = "Test Client", Email = "client@example.com", Role = "Client", PasswordHash = "test" });
+            }
+
+            if (!masterExists)
+            {
                 var masterUser = new Models.User { Name = "Test Master", Email = "master@example.com", Role = "Master", PasswordHash = "test" };
                 _context.Users.Add(masterUser);
-                _context.SaveChanges();
+                _context.SaveChanges(); // Zapisz, aby masterUser otrzymał UserId
 
+                // Dodaj powiązanego Mastera
                 _context.Masters.Add(new Models.Master { UserId = masterUser.UserId, Specialization = "Hairdresser" });
-                _context.Services.Add(new Models.Service { Name = "Haircut", Duration = 60, Price = 50.00m });
-                _context.Services.Add(new Models.Service { Name = "Manicure", Duration = 45, Price = 30.00m });
-                _context.SaveChanges();
             }
+            else
+            {
+                _context.SaveChanges(); // Zapisz zmiany, jeśli dodano tylko klienta
+            }
+
+            // Dodaj usługi, jeśli jeszcze nie istnieją
+            if (!_context.Services.Any(s => s.Name == "Haircut"))
+            {
+                _context.Services.Add(new Models.Service { Name = "Haircut", Duration = 60, Price = 50.00m });
+            }
+            if (!_context.Services.Any(s => s.Name == "Manicure"))
+            {
+                _context.Services.Add(new Models.Service { Name = "Manicure", Duration = 45, Price = 30.00m });
+            }
+
+            _context.SaveChanges();
         }
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
@@ -69,15 +93,12 @@ namespace BeautyApplication
             Close();
         }
 
-        private void ForgotPassword_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Password recovery is not implemented yet.");
-        }
-
         private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
         {
             Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri) { UseShellExecute = true });
             e.Handled = true;
         }
+
+    
     }
 }

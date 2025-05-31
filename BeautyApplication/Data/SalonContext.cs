@@ -21,5 +21,28 @@ namespace BeautyApplication.Data
                 optionsBuilder.UseSqlite("Data Source=salon.db");
             }
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Master>()
+                .HasOne(m => m.User)
+                .WithMany()
+                .HasForeignKey(m => m.UserId);
+
+            modelBuilder.Entity<Appointment>()
+                .HasOne(a => a.User)
+                .WithMany()
+                .HasForeignKey(a => a.UserId);
+
+            modelBuilder.Entity<Appointment>()
+                .HasOne(a => a.Master)
+                .WithMany()
+                .HasForeignKey(a => a.MasterId);
+
+            modelBuilder.Entity<Appointment>()
+                .HasOne(a => a.Service)
+                .WithMany()
+                .HasForeignKey(a => a.ServiceId);
+        }
     }
 }

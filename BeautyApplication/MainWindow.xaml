@@ -110,8 +110,7 @@
                         <TextBlock Grid.Column="0" Text="🔒" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="16" Margin="5,0"/>
                         <PasswordBox Grid.Column="1" x:Name="PasswordBox" Style="{StaticResource PasswordBoxStyle}"/>
                     </Grid>
-                    <Button Content="Forgot?" FontSize="12" Background="Transparent" BorderThickness="0" Foreground="Black" Margin="5,4,0,0"
-                            HorizontalAlignment="Left" Click="ForgotPassword_Click"/>
+                   
                 </StackPanel>
 
                 <Button Style="{StaticResource LoginButtonStyle}" Click="LoginButton_Click">

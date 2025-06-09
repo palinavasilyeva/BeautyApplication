@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?include pl-PL.wxl?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-	<Product Id="*" Name="BeautyApplication" Language="1049" Version="1.0.0.0" Manufacturer="Maksim" UpgradeCode="{550E8400-E29B-41D4-A716-446655440000}">
+	<Product Id="*" Name="BeautyApplication" Language="1045" Version="1.0.0.0" Manufacturer="Maksim" UpgradeCode="{550E8400-E29B-41D4-A716-446655440000}">
 		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
-
-		<MajorUpgrade DowngradeErrorMessage="Nowsza wersja BeautyApplication jest już zainstalowana." />
+		<MajorUpgrade DowngradeErrorMessage="!(loc.DowngradeErrorMessage)" />
 		<MediaTemplate EmbedCab="yes" />
 
 		<Feature Id="ProductFeature" Title="BeautyApplication" Level="1">
@@ -14,7 +14,7 @@
 		<Property Id="NETFRAMEWORK60INSTALLED">
 			<RegistrySearch Id="NetFramework60Check" Root="HKLM" Key="SOFTWARE\Microsoft\.NETFramework\v6.0" Name="Install" Type="raw" />
 		</Property>
-		<Condition Message=".NET 6.0 Runtime jest wymagany do zainstalowania BeautyApplication.">
+		<Condition Message="!(loc.ConditionMessage)">
 			<![CDATA[Installed OR NETFRAMEWORK60INSTALLED]]>
 		</Condition>
 	</Product>
@@ -46,10 +46,10 @@
 			<!-- Skrót w menu Start -->
 			<Component Id="ProgramMenuShortcut" Guid="{2B3C4D5E-6F7A-8B9C-0D1E-2F3A4B5C6D7E}">
 				<Shortcut Id="ApplicationStartMenuShortcut"
-						  Name="BeautyApplication"
-						  Description="Uruchom BeautyApplication"
-						  Target="[INSTALLFOLDER]BeautyApplication.exe"
-						  WorkingDirectory="INSTALLFOLDER" />
+                          Name="BeautyApplication"
+                          Description="Uruchom BeautyApplication"
+                          Target="[INSTALLFOLDER]BeautyApplication.exe"
+                          WorkingDirectory="INSTALLFOLDER" />
 				<RemoveFolder Id="ApplicationProgramsFolder" On="uninstall" />
 				<RegistryValue Root="HKCU" Key="Software\Maksim\BeautyApplication" Name="installed" Type="integer" Value="1" KeyPath="yes" />
 			</Component>
@@ -57,10 +57,10 @@
 			<!-- Skrót na pulpicie -->
 			<Component Id="DesktopShortcut" Guid="{3C4D5E6F-7A8B-9C0D-1E2F-3A4B5C6D7E8F}">
 				<Shortcut Id="ApplicationDesktopShortcut"
-						  Name="BeautyApplication"
-						  Description="Uruchom BeautyApplication"
-						  Target="[INSTALLFOLDER]BeautyApplication.exe"
-						  WorkingDirectory="INSTALLFOLDER" />
+                          Name="BeautyApplication"
+                          Description="Uruchom BeautyApplication"
+                          Target="[INSTALLFOLDER]BeautyApplication.exe"
+                          WorkingDirectory="INSTALLFOLDER" />
 				<RemoveFolder Id="DesktopFolder" On="uninstall" />
 				<RegistryValue Root="HKCU" Key="Software\Maksim\BeautyApplication" Name="desktopShortcut" Type="integer" Value="1" KeyPath="yes" />
 			</Component>

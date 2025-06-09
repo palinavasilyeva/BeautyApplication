@@ -126,7 +126,7 @@
 
         <Border Background="White" Margin="600,40,30,40" CornerRadius="20">
             <StackPanel Margin="30">
-                <TextBlock Text="BeautyApplication" FontSize="24" FontWeight="Bold" Margin="0,0,0,20"/>
+                <TextBlock Text="Beauty Studio" FontSize="24" FontWeight="Bold" Margin="0,0,0,20"/>
                 <TextBlock Text="Welcome!" FontSize="14" Foreground="Gray"/>
                 <TextBlock Text="Sign in to get started" FontSize="14" Foreground="Gray" Margin="0,0,0,20"/>
                 <Ellipse Width="110" Height="110" Fill="#FFD7A4B0"/>

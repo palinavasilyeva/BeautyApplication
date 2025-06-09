@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-	<Product Id="*" Name="BeautyApplication" Language="1049" Version="1.0.0.0" Manufacturer="Maksim" UpgradeCode="{9CC4C7A5-EC72-46DA-AF70-F9306469950A}">
+	<Product Id="*" Name="BeautyApplication" Language="1049" Version="1.0.0.0" Manufacturer="Maksim" UpgradeCode="{550E8400-E29B-41D4-A716-446655440000}">
 		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
 
 		<MajorUpgrade DowngradeErrorMessage="Nowsza wersja BeautyApplication jest już zainstalowana." />
@@ -10,11 +10,11 @@
 			<ComponentGroupRef Id="ProductComponents" />
 		</Feature>
 
-		<!-- Sprawdzenie obecności środowiska .NET 6.0 Runtime -->
+		<!-- Sprawdzenie obecności środowiska uruchomieniowego .NET 6.0 -->
 		<Property Id="NETFRAMEWORK60INSTALLED">
 			<RegistrySearch Id="NetFramework60Check" Root="HKLM" Key="SOFTWARE\Microsoft\.NETFramework\v6.0" Name="Install" Type="raw" />
 		</Property>
-		<Condition Message="Do instalacji BeautyApplication wymagane jest środowisko .NET 6.0 Runtime.">
+		<Condition Message=".NET 6.0 Runtime jest wymagany do zainstalowania BeautyApplication.">
 			<![CDATA[Installed OR NETFRAMEWORK60INSTALLED]]>
 		</Condition>
 	</Product>
@@ -34,19 +34,17 @@
 	<Fragment>
 		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
 			<!-- Główny plik wykonywalny -->
-			<Component Id="BeautyApplicationExe" Guid="{46478848-2BD2-487E-ADAD-D3E47A072D3D}">
+			<Component Id="BeautyApplicationExe" Guid="{A1B2C3D4-E5F6-4A7B-8C9D-0E1F2A3B4C5D}">
 				<File Id="BeautyApplicationExeFile" Source="$(var.BeautyApplication.TargetPath)" KeyPath="yes" />
 			</Component>
 
 			<!-- Plik bazy danych -->
-			<Component Id="SalonDb" Guid="{59F99448-D530-4802-90C3-FCAADF0BED88}">
+			<Component Id="SalonDb" Guid="{1A2B3C4D-5E6F-7A8B-9C0D-1E2F3A4B5C6D}">
 				<File Id="SalonDbFile" Source="$(var.BeautyApplication.ProjectDir)\salon.db" KeyPath="yes" />
 			</Component>
-		</ComponentGroup>
 
-		<!-- Skrót w menu Start -->
-		<ComponentGroup Id="ProgramMenuComponents" Directory="ApplicationProgramsFolder">
-			<Component Id="ProgramMenuShortcut" Guid="{9F43E7EE-672C-407A-8D1D-99338CA8A2CF}">
+			<!-- Skrót w menu Start -->
+			<Component Id="ProgramMenuShortcut" Guid="{2B3C4D5E-6F7A-8B9C-0D1E-2F3A4B5C6D7E}">
 				<Shortcut Id="ApplicationStartMenuShortcut"
 						  Name="BeautyApplication"
 						  Description="Uruchom BeautyApplication"
@@ -55,11 +53,9 @@
 				<RemoveFolder Id="ApplicationProgramsFolder" On="uninstall" />
 				<RegistryValue Root="HKCU" Key="Software\Maksim\BeautyApplication" Name="installed" Type="integer" Value="1" KeyPath="yes" />
 			</Component>
-		</ComponentGroup>
 
-		<!-- Skrót na pulpicie -->
-		<ComponentGroup Id="DesktopComponents" Directory="DesktopFolder">
-			<Component Id="DesktopShortcut" Guid="{EE448D58-873B-4C65-9EF7-1259E681BBE7}">
+			<!-- Skrót na pulpicie -->
+			<Component Id="DesktopShortcut" Guid="{3C4D5E6F-7A8B-9C0D-1E2F-3A4B5C6D7E8F}">
 				<Shortcut Id="ApplicationDesktopShortcut"
 						  Name="BeautyApplication"
 						  Description="Uruchom BeautyApplication"
@@ -68,14 +64,6 @@
 				<RemoveFolder Id="DesktopFolder" On="uninstall" />
 				<RegistryValue Root="HKCU" Key="Software\Maksim\BeautyApplication" Name="desktopShortcut" Type="integer" Value="1" KeyPath="yes" />
 			</Component>
-		</ComponentGroup>
-
-		<!-- Połączenie wszystkich komponentów -->
-		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
-			<ComponentRef Id="BeautyApplicationExe" />
-			<ComponentRef Id="SalonDb" />
-			<ComponentRef Id="ProgramMenuShortcut" />
-			<ComponentRef Id="DesktopShortcut" />
 		</ComponentGroup>
 	</Fragment>
 </Wix>

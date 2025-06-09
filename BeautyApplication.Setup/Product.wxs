@@ -1,30 +1,81 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-	<Product Id="*" Name="BeautyApplication.Setup" Language="1033" Version="1.0.0.0" Manufacturer="" UpgradeCode="4ed83959-8588-43e6-b321-8b4b0f9a5e42">
+	<Product Id="*" Name="BeautyApplication" Language="1049" Version="1.0.0.0" Manufacturer="Maksim" UpgradeCode="{9CC4C7A5-EC72-46DA-AF70-F9306469950A}">
 		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
 
-		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
-		<MediaTemplate />
+		<MajorUpgrade DowngradeErrorMessage="Nowsza wersja BeautyApplication jest już zainstalowana." />
+		<MediaTemplate EmbedCab="yes" />
 
-		<Feature Id="ProductFeature" Title="BeautyApplication.Setup" Level="1">
+		<Feature Id="ProductFeature" Title="BeautyApplication" Level="1">
 			<ComponentGroupRef Id="ProductComponents" />
 		</Feature>
+
+		<!-- Sprawdzenie obecności środowiska .NET 6.0 Runtime -->
+		<Property Id="NETFRAMEWORK60INSTALLED">
+			<RegistrySearch Id="NetFramework60Check" Root="HKLM" Key="SOFTWARE\Microsoft\.NETFramework\v6.0" Name="Install" Type="raw" />
+		</Property>
+		<Condition Message="Do instalacji BeautyApplication wymagane jest środowisko .NET 6.0 Runtime.">
+			<![CDATA[Installed OR NETFRAMEWORK60INSTALLED]]>
+		</Condition>
 	</Product>
 
 	<Fragment>
 		<Directory Id="TARGETDIR" Name="SourceDir">
 			<Directory Id="ProgramFilesFolder">
-				<Directory Id="INSTALLFOLDER" Name="BeautyApplication.Setup" />
+				<Directory Id="INSTALLFOLDER" Name="BeautyApplication" />
 			</Directory>
+			<Directory Id="ProgramMenuFolder">
+				<Directory Id="ApplicationProgramsFolder" Name="BeautyApplication" />
+			</Directory>
+			<Directory Id="DesktopFolder" Name="Desktop" />
 		</Directory>
 	</Fragment>
 
 	<Fragment>
 		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
-			<!-- TODO: Remove the comments around this Component element and the ComponentRef below in order to add resources to this installer. -->
-			<!-- <Component Id="ProductComponent"> -->
-				<!-- TODO: Insert files, registry keys, and other resources here. -->
-			<!-- </Component> -->
+			<!-- Główny plik wykonywalny -->
+			<Component Id="BeautyApplicationExe" Guid="{46478848-2BD2-487E-ADAD-D3E47A072D3D}">
+				<File Id="BeautyApplicationExeFile" Source="$(var.BeautyApplication.TargetPath)" KeyPath="yes" />
+			</Component>
+
+			<!-- Plik bazy danych -->
+			<Component Id="SalonDb" Guid="{59F99448-D530-4802-90C3-FCAADF0BED88}">
+				<File Id="SalonDbFile" Source="$(var.BeautyApplication.ProjectDir)\salon.db" KeyPath="yes" />
+			</Component>
+		</ComponentGroup>
+
+		<!-- Skrót w menu Start -->
+		<ComponentGroup Id="ProgramMenuComponents" Directory="ApplicationProgramsFolder">
+			<Component Id="ProgramMenuShortcut" Guid="{9F43E7EE-672C-407A-8D1D-99338CA8A2CF}">
+				<Shortcut Id="ApplicationStartMenuShortcut"
+						  Name="BeautyApplication"
+						  Description="Uruchom BeautyApplication"
+						  Target="[INSTALLFOLDER]BeautyApplication.exe"
+						  WorkingDirectory="INSTALLFOLDER" />
+				<RemoveFolder Id="ApplicationProgramsFolder" On="uninstall" />
+				<RegistryValue Root="HKCU" Key="Software\Maksim\BeautyApplication" Name="installed" Type="integer" Value="1" KeyPath="yes" />
+			</Component>
+		</ComponentGroup>
+
+		<!-- Skrót na pulpicie -->
+		<ComponentGroup Id="DesktopComponents" Directory="DesktopFolder">
+			<Component Id="DesktopShortcut" Guid="{EE448D58-873B-4C65-9EF7-1259E681BBE7}">
+				<Shortcut Id="ApplicationDesktopShortcut"
+						  Name="BeautyApplication"
+						  Description="Uruchom BeautyApplication"
+						  Target="[INSTALLFOLDER]BeautyApplication.exe"
+						  WorkingDirectory="INSTALLFOLDER" />
+				<RemoveFolder Id="DesktopFolder" On="uninstall" />
+				<RegistryValue Root="HKCU" Key="Software\Maksim\BeautyApplication" Name="desktopShortcut" Type="integer" Value="1" KeyPath="yes" />
+			</Component>
+		</ComponentGroup>
+
+		<!-- Połączenie wszystkich komponentów -->
+		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+			<ComponentRef Id="BeautyApplicationExe" />
+			<ComponentRef Id="SalonDb" />
+			<ComponentRef Id="ProgramMenuShortcut" />
+			<ComponentRef Id="DesktopShortcut" />
 		</ComponentGroup>
 	</Fragment>
 </Wix>

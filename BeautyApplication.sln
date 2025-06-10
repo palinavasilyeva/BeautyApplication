@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeautyApplication", "Beauty
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeautyApplication.Tests", "BeautyApplication.Tests\BeautyApplication.Tests.csproj", "{46DEB066-4240-429A-B533-722538C6AD01}"
 EndProject
-Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "BeautyApplication.Setup", "BeautyApplication.Setup\BeautyApplication.Setup.wixproj", "{5DBFE1D3-D8C9-43BE-AD92-5C697E6F5F87}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,14 +31,6 @@ Global
 		{46DEB066-4240-429A-B533-722538C6AD01}.Release|Any CPU.Build.0 = Release|Any CPU
 		{46DEB066-4240-429A-B533-722538C6AD01}.Release|x86.ActiveCfg = Release|Any CPU
 		{46DEB066-4240-429A-B533-722538C6AD01}.Release|x86.Build.0 = Release|Any CPU
-		{5DBFE1D3-D8C9-43BE-AD92-5C697E6F5F87}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{5DBFE1D3-D8C9-43BE-AD92-5C697E6F5F87}.Debug|Any CPU.Build.0 = Debug|x86
-		{5DBFE1D3-D8C9-43BE-AD92-5C697E6F5F87}.Debug|x86.ActiveCfg = Debug|x86
-		{5DBFE1D3-D8C9-43BE-AD92-5C697E6F5F87}.Debug|x86.Build.0 = Debug|x86
-		{5DBFE1D3-D8C9-43BE-AD92-5C697E6F5F87}.Release|Any CPU.ActiveCfg = Release|x86
-		{5DBFE1D3-D8C9-43BE-AD92-5C697E6F5F87}.Release|Any CPU.Build.0 = Release|x86
-		{5DBFE1D3-D8C9-43BE-AD92-5C697E6F5F87}.Release|x86.ActiveCfg = Release|x86
-		{5DBFE1D3-D8C9-43BE-AD92-5C697E6F5F87}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

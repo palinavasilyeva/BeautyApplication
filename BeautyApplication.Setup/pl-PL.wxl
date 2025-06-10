@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Include>
-    <String Id="DowngradeErrorMessage">Nowsza wersja BeautyApplication jest ju? zainstalowana.</String>
+    <String Id="DowngradeErrorMessage">Nowsza wersja BeautyApplication jest już zainstalowana.</String>
     <String Id="ConditionMessage">.NET 6.0 Runtime jest wymagany do zainstalowania BeautyApplication.</String>
 </Include>
